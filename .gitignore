@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# CUDA compilation artifacts
+*.cubin
+*.fatbin
+*.ptx
+*.o
+*.obj
+
+# PyTorch JIT cache
+torch_extensions/
+__torch_extensions__/
+
+# Profiling output
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!vite.config.ts
+*.trace
+*.nsys-rep
+*.sqlite
+chrome_trace/
+
+# Experiment outputs (tracked selectively)
+experiments/*.json
+experiments/*.csv
+!experiments/.gitkeep
+
+# Reports (tracked selectively)
+reports/*.html
+reports/*.pdf
+!reports/.gitkeep
+
+# Dashboard
+dashboard/frontend/node_modules/
+dashboard/frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Env
+.env
+.env.local
+
+# Model cache (huge)
+models/
+*.bin
+*.safetensors

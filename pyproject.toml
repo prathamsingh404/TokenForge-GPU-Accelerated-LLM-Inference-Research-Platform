@@ -1,0 +1,26 @@
+[project]
+name = "llm-inference-lab"
+version = "0.1.0"
+description = "Research platform for benchmarking and optimizing LLM inference performance"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = [
+    "core*",
+    "benchmark_engine*",
+    "quantization*",
+    "batching*",
+    "kv_cache*",
+    "continuous_batching*",
+    "speculative_decoding*",
+    "prefix_caching*",
+    "profiling*",
+    "cuda_kernels*",
+    "triton_kernels*",
+    "dashboard*",
+]
