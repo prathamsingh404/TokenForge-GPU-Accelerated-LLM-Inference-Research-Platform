@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 Continuous batching engine.
 
@@ -10,15 +11,15 @@ and similar production serving systems.
 """
 
 import time
-from typing import Optional
+from typing import Optional, Union
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from rich.console import Console
 
 from core.config import get_config
-from continuous_batching.scheduler import ContinuousBatchScheduler, ScheduledBatch
-from continuous_batching.request_queue import InferenceRequest, RequestStatus
+from tokenforge.schedulers.base import BaseScheduler, ScheduledBatch, SchedulerRequest
+from tokenforge.schedulers import get_scheduler
 
 console = Console()
 
@@ -40,6 +41,7 @@ class ContinuousBatchingEngine:
         model_name: Optional[str] = None,
         max_batch_size: int = 8,
         dtype: torch.dtype = torch.float16,
+        scheduler: Union[str, BaseScheduler] = "fifo",
     ):
         cfg = get_config()
         model_name = model_name or cfg.models.small_model
@@ -54,13 +56,16 @@ class ContinuousBatchingEngine:
         self.model.eval()
         self.device = next(self.model.parameters()).device
 
-        self.scheduler = ContinuousBatchScheduler(max_batch_size=max_batch_size)
+        if isinstance(scheduler, str):
+            self.scheduler = get_scheduler(scheduler)(max_batch_size=max_batch_size)
+        else:
+            self.scheduler = scheduler
 
         # Per-request state: maps request_id -> current token sequence
         self._sequences: dict[str, torch.Tensor] = {}
         self._past_kvs: dict[str, Optional[tuple]] = {}
 
-    def submit(self, requests: list[InferenceRequest]):
+    def submit(self, requests: list[SchedulerRequest]):
         """Submit new requests for processing."""
         for req in requests:
             input_ids = self.tokenizer.encode(req.prompt, return_tensors="pt")
@@ -113,7 +118,7 @@ class ContinuousBatchingEngine:
 
         return tokens_this_step
 
-    def run_to_completion(self) -> list[InferenceRequest]:
+    def run_to_completion(self) -> list[SchedulerRequest]:
         """Run until all submitted requests are complete."""
         total_tokens = 0
         total_steps = 0
@@ -132,7 +137,7 @@ class ContinuousBatchingEngine:
             f"({total_tokens/max(elapsed,1e-9):.1f} tok/s)[/]"
         )
 
-        return self.scheduler.get_completed()
+        return self.scheduler.completed_requests
 
     def cleanup(self):
         self._sequences.clear()
