@@ -13,3 +13,6 @@ While weights are quantized, activations often contain outliers. SmoothQuant add
 
 ## 4-Bit NormalFloat (NF4)
 Information-theoretically optimal data type for normally distributed weights. BitsAndBytes implements this by estimating the quantiles of a standard normal distribution and mapping weight tensors into those 16 buckets. Perfect for running large models on consumer GPUs (e.g., RTX 5050 8GB).
+
+
+<!-- TokenForge Platform -->

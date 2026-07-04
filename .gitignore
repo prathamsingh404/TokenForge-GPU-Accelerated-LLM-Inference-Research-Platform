@@ -66,3 +66,6 @@ desktop.ini
 models/
 *.bin
 *.safetensors
+
+
+# TokenForge configuration

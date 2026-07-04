@@ -11,3 +11,6 @@ $$ \text{Arithmetic Intensity (FLOPs/Byte)} = \frac{\text{Total Floating Point O
 2. **Compute-Bound**: The kernel does massive amounts of math per byte loaded (e.g., Large Matrix Multiplication, Prefill attention). Performance is capped by Peak Compute (TFLOPs).
 
 By plotting our custom CUDA and Triton kernels on a log-log Roofline plot, we can determine whether further optimizations should focus on memory coalescing (if memory bound) or instruction-level parallelism (if compute bound).
+
+
+<!-- TokenForge Platform -->

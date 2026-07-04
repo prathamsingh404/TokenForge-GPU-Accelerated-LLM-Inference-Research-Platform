@@ -10,3 +10,6 @@ Continuous Batching operates at the *iteration level* (token-by-token):
 4. The new sequences undergo a "prefill" phase while the existing sequences undergo a "decode" phase.
 
 This drastically improves overall hardware utilization, often yielding 10x-20x throughput increases in production serving environments compared to static batching.
+
+
+<!-- TokenForge Platform -->

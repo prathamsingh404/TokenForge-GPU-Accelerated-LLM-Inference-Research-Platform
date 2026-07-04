@@ -11,3 +11,6 @@ Speculative Decoding breaks this bottleneck by guessing tokens in advance.
 4. Upon the first rejection, the sequence is corrected by sampling from the modified target distribution, and the draft loop restarts.
 
 This provides mathematically identical outputs to the Target model, but at 2x-3x the speed.
+
+
+<!-- TokenForge Platform -->

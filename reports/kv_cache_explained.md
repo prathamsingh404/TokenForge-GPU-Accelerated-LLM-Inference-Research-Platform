@@ -10,3 +10,6 @@ Naively appending to a PyTorch tensor dynamically reallocates memory. Over thous
 
 ## PagedAttention (vLLM style)
 Our `KVCacheManager` implements a simplified PagedAttention. It pre-allocates a continuous memory block divided into pages (e.g., 16 tokens per page). Logical tokens are mapped to physical pages via a block table, eliminating external fragmentation entirely.
+
+
+<!-- TokenForge Platform -->
