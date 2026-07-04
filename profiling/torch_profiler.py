@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 PyTorch Profiler wrapper for CUDA kernel analysis.
 
@@ -72,7 +73,8 @@ def profile_inference(
 
     # Build summary
     cuda_time_total = sum(
-        evt.cuda_time_total for evt in key_averages if evt.cuda_time_total > 0
+        getattr(evt, 'cuda_time_total', getattr(evt, 'cpu_time_total', 0)) for evt in key_averages
+        if getattr(evt, 'cuda_time_total', getattr(evt, 'cpu_time_total', 0)) > 0
     )
 
     top_kernels = sorted(
