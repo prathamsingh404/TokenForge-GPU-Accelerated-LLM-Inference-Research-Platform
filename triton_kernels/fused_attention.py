@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 Simplified Fused Attention implementation using OpenAI Triton.
 Mimics FlashAttention by fusing the matmuls and softmax.

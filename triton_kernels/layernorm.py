@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 LayerNorm implementation using OpenAI Triton.
 Computes layer normalization over the last dimension.

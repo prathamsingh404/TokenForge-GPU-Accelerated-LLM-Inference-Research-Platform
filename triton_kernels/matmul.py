@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 Matrix multiplication implementation using OpenAI Triton.
 Demonstrates blocked matmul for optimal performance, rivaling cuBLAS.
