@@ -1,9 +1,26 @@
 [project]
-name = "llm-inference-lab"
-version = "0.1.0"
-description = "Research platform for benchmarking and optimizing LLM inference performance"
+name = "tokenforge"
+version = "0.2.0"
+description = "The open-source playground for studying, benchmarking, profiling, and optimizing LLM inference."
 requires-python = ">=3.10"
 license = {text = "MIT"}
+readme = "README.md"
+keywords = ["llm", "inference", "benchmark", "gpu", "cuda", "optimization", "vllm", "tensorrt"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.scripts]
+tokenforge = "tokenforge.cli:main"
+
+[project.optional-dependencies]
+dashboard = ["fastapi>=0.115.0", "uvicorn[standard]>=0.34.0", "jinja2>=3.1.0", "aiosqlite>=0.21.0", "websockets>=14.0"]
+triton = ["triton>=3.0.0"]
 
 [build-system]
 requires = ["setuptools>=75.0"]
@@ -11,6 +28,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = [
+    "tokenforge*",
     "core*",
     "benchmark_engine*",
     "quantization*",
@@ -24,3 +42,6 @@ include = [
     "triton_kernels*",
     "dashboard*",
 ]
+
+
+# TokenForge configuration

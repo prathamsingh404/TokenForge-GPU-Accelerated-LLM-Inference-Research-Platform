@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 Global configuration for the inference lab.
 
@@ -46,7 +47,7 @@ class HardwareInfo:
         props = torch.cuda.get_device_properties(0)
         return cls(
             gpu_name=props.name,
-            gpu_vram_mb=props.total_mem // (1024 ** 2),
+            gpu_vram_mb=props.total_memory // (1024 ** 2),
             compute_capability=(props.major, props.minor),
             cuda_version=torch.version.cuda or "unknown",
             sm_count=props.multi_processor_count,
