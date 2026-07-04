@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 INT8 quantized inference via bitsandbytes.
 
@@ -98,7 +99,6 @@ def run_int8_benchmark(
         quantization="int8",
     )
 
-    del model, tokenizer
     torch.cuda.empty_cache()
     return result
 

@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 INT4 quantized inference via bitsandbytes NF4.
 
@@ -101,7 +102,6 @@ def run_int4_benchmark(
         quantization="int4",
     )
 
-    del model, tokenizer
     torch.cuda.empty_cache()
     return result
 

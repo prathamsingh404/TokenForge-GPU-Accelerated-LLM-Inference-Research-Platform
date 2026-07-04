@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 FP16 (half-precision) inference runner.
 
@@ -94,7 +95,6 @@ def run_fp16_benchmark(
         quantization="fp16",
     )
 
-    del model, tokenizer
     torch.cuda.empty_cache()
     return result
 
