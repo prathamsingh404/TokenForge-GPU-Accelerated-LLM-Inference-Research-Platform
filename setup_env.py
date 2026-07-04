@@ -1,5 +1,6 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
-Environment validation for LLM Inference Lab.
+Environment validation for TokenForge.
 
 Checks that all required dependencies and hardware are available
 before running any experiments. Run this first after cloning.
@@ -88,7 +89,7 @@ def check_node():
 
 def main():
     print("=" * 60)
-    print("LLM Inference Optimization Lab — Environment Check")
+    print("TokenForge — Environment Check")
     print("=" * 60)
 
     all_ok = True
