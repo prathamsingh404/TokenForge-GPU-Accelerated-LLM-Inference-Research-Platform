@@ -1,8 +1,19 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 Metric collection and statistical aggregation.
 
 Provides `BenchmarkResult` for storing raw timing data, and functions
 for computing percentiles and summary statistics over repeated runs.
+
+Metrics tracked:
+- Throughput (tokens/sec)
+- TTFT (time to first token)
+- Time per output token (TPOT)
+- End-to-end latency with P50/P90/P95/P99 percentiles
+- Energy efficiency (joules/token, tokens/watt)
+- Queue wait time (for workload simulation)
+- Request completion distribution
+- Full environment manifest for reproducibility
 """
 
 import time
@@ -29,6 +40,8 @@ class TimingResult:
 class LatencyStats:
     mean: float
     median: float
+    p50: float
+    p90: float
     p95: float
     p99: float
     std: float
@@ -51,8 +64,23 @@ class BenchmarkResult:
     end_to_end_latency: LatencyStats
     ttft: Optional[LatencyStats] = None
 
+    # per-token timing
+    time_per_output_token: Optional[LatencyStats] = None
+
     # GPU
     gpu_summary: Optional[GPUMetricsSummary] = None
+
+    # energy efficiency
+    total_energy_joules: float = 0.0
+    joules_per_token: float = 0.0
+    tokens_per_watt: float = 0.0
+
+    # queue metrics (for workload simulation)
+    queue_wait_time: Optional[LatencyStats] = None
+    request_completion_distribution: Optional[dict] = None
+
+    # reproducibility
+    environment: Optional[dict] = None
 
     # metadata
     batch_size: int = 1
@@ -72,7 +100,7 @@ class BenchmarkResult:
 def compute_latency_stats(values: list[float]) -> LatencyStats:
     """Compute summary statistics from a list of latency measurements."""
     if not values:
-        return LatencyStats(0, 0, 0, 0, 0, 0, 0)
+        return LatencyStats(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
     sorted_vals = sorted(values)
     n = len(sorted_vals)
@@ -84,6 +112,8 @@ def compute_latency_stats(values: list[float]) -> LatencyStats:
     return LatencyStats(
         mean=statistics.mean(values),
         median=statistics.median(values),
+        p50=percentile(50),
+        p90=percentile(90),
         p95=percentile(95),
         p99=percentile(99),
         std=statistics.stdev(values) if n > 1 else 0.0,
