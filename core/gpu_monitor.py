@@ -1,3 +1,4 @@
+# TokenForge GPU-Accelerated LLM Inference Platform
 """
 Real-time GPU metrics collection via pynvml.
 
@@ -37,6 +38,7 @@ class GPUMetricsSummary:
     avg_power_w: float
     max_power_w: float
     sample_count: int
+    energy_joules: float = 0.0  # Cumulative energy consumed (power × time)
     snapshots: list[GPUSnapshot] = field(default_factory=list)
 
 
@@ -161,6 +163,16 @@ class GPUMonitor:
         temps = [s.temperature_c for s in self._snapshots]
         powers = [s.power_draw_w for s in self._snapshots]
 
+        # Compute cumulative energy (Joules) via trapezoidal integration
+        # of power over time between consecutive snapshots
+        energy_joules = 0.0
+        if n > 1:
+            for i in range(1, n):
+                dt = self._snapshots[i].timestamp - self._snapshots[i - 1].timestamp
+                avg_power = (self._snapshots[i].power_draw_w
+                             + self._snapshots[i - 1].power_draw_w) / 2.0
+                energy_joules += avg_power * dt
+
         return GPUMetricsSummary(
             avg_util=sum(utils) / n,
             max_util=max(utils),
@@ -171,6 +183,7 @@ class GPUMonitor:
             avg_power_w=sum(powers) / n,
             max_power_w=max(powers),
             sample_count=n,
+            energy_joules=energy_joules,
             snapshots=self._snapshots if self.keep_snapshots else [],
         )
 
