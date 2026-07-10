@@ -59,7 +59,7 @@ How TokenForge compares to production inference engines:
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 TokenForge requires a Linux/Windows environment with a CUDA-capable NVIDIA GPU and Python 3.10+.
 
