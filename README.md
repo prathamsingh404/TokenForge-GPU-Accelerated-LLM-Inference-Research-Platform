@@ -17,7 +17,7 @@ Unlike a generic chatbot wrapper, TokenForge is a highly modular research platfo
 
 ---
 
-## ⚡ Performance Showcase
+##  Performance Showcase
 
 TokenForge implements iteration-level continuous batching, custom CUDA/Triton kernels, and advanced memory management to dramatically outperform naive HuggingFace inference.
 
