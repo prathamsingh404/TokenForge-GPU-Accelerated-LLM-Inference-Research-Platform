@@ -155,7 +155,7 @@ result.export_report("qwen_priority_analysis.html")
 
 ---
 
-## 🧠 Architecture Overview
+##  Architecture Overview
 
 TokenForge is designed around strict decoupling. You can extend any component without touching the core engine.
 
