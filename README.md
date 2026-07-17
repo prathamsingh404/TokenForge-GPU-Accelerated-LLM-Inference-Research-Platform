@@ -55,7 +55,7 @@ How TokenForge compares to production inference engines:
 | **Adaptive Eviction (H2O)** | ✅ | ❌ | ❌ | ❌ |
 | **Energy/Power Metrics** | ✅ (Joules/token) | ❌ | ❌ | ❌ |
 | **Hardware Simulator** | ✅ (TP/PP on single GPU) | ❌ | ❌ | ❌ |
-| **Ease of Hacking/Extending** | ⭐⭐⭐⭐⭐ (Pure Python/PyTorch) | ⭐⭐⭐ (Complex C++) | ⭐ (Closed/Complex) | ⭐⭐⭐⭐ |
+| **Ease of Hacking/Extending** | ⭐⭐⭐⭐⭐ (Pure Python/PyTorch) | ⭐⭐⭐ (Complex C++) | ⭐ (Closed/Complex) | ⭐⭐⭐⭐ 
 
 ---
 
